@@ -175,19 +175,12 @@ button:hover:before {
 	animation: fadeInButton 2s ease-in-out;
 }
 
-/* @keyframes fadeInAnime {
-	from {
-		opacity: 0;
-		scale: 0;
-		rotate: 0;
+@media screen and (max-width: 500px) {
+	button {
+		font-size: 18px;
 	}
-	to {
-		opacity: 1;
-		scale: 1;
-		rotate: 360deg;
+
+	#countdownText {
+		font-size: 26px;
 	}
 }
-
-.anime {
-	animation: fadeInAnime 2s ease-in-out;
-} */

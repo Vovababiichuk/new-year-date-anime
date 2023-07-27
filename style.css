@@ -10,7 +10,7 @@ body {
 	overflow: hidden;
 	background: #000;
 	font-family: Montserrat, sans-serif;
-	background-image: url(/img/3.jpg);
+	background-image: url(./img/3.jpg);
 	background-size: cover;
 	background-position: center;
 }

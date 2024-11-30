@@ -23,7 +23,7 @@ canvas {
 #hero {
 	display: inline;
 	position: absolute;
-	top: 55%;
+	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
 	mix-blend-mode: color-dodge;
@@ -33,6 +33,12 @@ canvas {
 	font-size: 26vw;
 	color: #d0d0d0;
 	font-weight: bold;
+}
+
+@media screen and (max-width: 500px) {
+	#year {
+		margin-bottom: 20px;
+	}
 }
 
 #timeleft {

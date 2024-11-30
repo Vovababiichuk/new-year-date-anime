@@ -1,34 +1,52 @@
-function updateCountdown() {
-   const currentDate = new Date();
-   const currentYear = currentDate.getFullYear();
-   const nextYear = new Date(currentYear + 1, 0, 1);
-   const timeRemaining = nextYear.getTime() - currentDate.getTime();
+const countdownText = document.getElementById("countdownText");
+const countdownElement = document.getElementById("countdown");
+const yearElement = document.getElementById("year");
+const countdownButton = document.getElementById("countdownButton");
+const countdownContainer = document.getElementById("countdownContainer");
 
-   const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
-   const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-   const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
-   const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+function getTimeRemaining() {
+  const now = new Date();
+  const currentYear = now.getFullYear();
+  const nextYear = new Date(currentYear + 1, 0, 1);
+  const timeRemaining = nextYear - now;
 
-   const countdownText = document.getElementById('countdownText');
-   const countdownElement = document.getElementById('countdown');
-
-   countdownText.textContent = 'Час до наступного Нового року:';
-   countdownElement.textContent = `${days} днів, ${hours} годин, ${minutes} хвилин, ${seconds} секунд`;
+  return {
+    timeRemaining,
+    currentYear,
+    days: Math.floor(timeRemaining / (1000 * 60 * 60 * 24)),
+    hours: Math.floor((timeRemaining / (1000 * 60 * 60)) % 24),
+    minutes: Math.floor((timeRemaining / (1000 * 60)) % 60),
+    seconds: Math.floor((timeRemaining / 1000) % 60),
+  };
 }
 
-document.getElementById('countdownButton').addEventListener('click', function () {
-   const countdownContainer = document.getElementById('countdownContainer');
+function updateCountdownDisplay() {
+  const { days, hours, minutes, seconds } = getTimeRemaining();
 
-   countdownContainer.style.display = 'block';
-   this.style.opacity = '0';
+  countdownText.textContent = "Час до наступного Нового року:";
+  countdownElement.textContent = `${days} днів, ${hours} годин, ${minutes} хвилин, ${seconds} секунд`;
+}
 
-   // Оновлюємо лічильник кожну секунду
-   const countdownInterval = setInterval(function () {
-      updateCountdown();
+document.addEventListener("DOMContentLoaded", () => {
+  const { currentYear } = getTimeRemaining();
+  yearElement.textContent = currentYear + 1;
+});
 
-      // Перевіряємо, чи наступив Новий рік
-      if (timeRemaining <= 0) {
-         clearInterval(countdownInterval);
-      }
-   }, 1000);
+countdownButton.addEventListener("click", () => {
+  countdownContainer.style.display = "block";
+  countdownButton.style.opacity = "0";
+
+  // Update the countdown immediately before the interval starts
+  updateCountdownDisplay();
+
+  const intervalId = setInterval(() => {
+    const { timeRemaining } = getTimeRemaining();
+
+    if (timeRemaining <= 0) {
+      clearInterval(intervalId);
+      countdownElement.textContent = "Щасливого Нового року!";
+    } else {
+      updateCountdownDisplay();
+    }
+  }, 1000);
 });

@@ -35,12 +35,6 @@ canvas {
 	font-weight: bold;
 }
 
-@media screen and (max-width: 500px) {
-	#year {
-		margin-bottom: 20px;
-	}
-}
-
 #timeleft {
 	color: #fbfbfb;
 	font-size: 2.5vw;
